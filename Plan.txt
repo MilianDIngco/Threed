@@ -1,0 +1,67 @@
+The vertical FOV of a human is about 150 degrees
+
+Camera has x, y, z variables determining where the center of the window is showing and all the calculations are done in accordance to x, y, z. 
+Camera also has variables thetaX and thetaY which keeps track of how much the camera has rotated in relation to the initial arbitrary degrees it is set at.
+
+For a vertex v, it has 3 points x, y, z. 
+This vertex exists in a 3d plane.
+if the camera rotates, vertex v should rotate in relation to camera's x, y, z. 
+
+I want to normalize each object to length 1 meter
+
+Rotation about Camera.y
+{
+    {cos(thetaY), 0, sin(thetaY), 0},
+    {0, 1, 0, 0},
+    {-sin(thetaY), 0, cos(thetaY), 0},
+    {0, 0, 0, 1}
+}
+
+Rotation about Camera.x
+{
+    {1, 0, 0, 0},
+    {0, cos(thetaX), -sin(thetaX), 0},
+    {0, sin(thetaX), cos(thetaX), 0},
+    {0, 0, 0, 1}
+}
+
+Translation about Camera
+{
+    {1, 0, 0, x},
+    {0, 1, 0, y},
+    {0, 0, 1, z},
+    {0, 0, 0, 1}
+}
+
+Ortho
+
+After all points have been translated, before drawing them, multiply by the perspective projection matrix
+{
+    {},
+    {},
+    {},
+    {}
+}
+
+Camera moves using wasd
+if w
+++z
+if a
+--x
+if s
+--z
+if d
+++x
+if space
+--y
+if shift
+++y
+
+Using mousemotionlistener i'll determine the direction in which the mouse is moving. 
+e.getX();
+e.getY();
+the mouse will have four variables, prevX, prevY, currX, currY, and each frame I'll update both per frame. 
+cam.thetaX += (currX - prevX) / 360;
+cam.thetaY += (currY - prevY) / 360;
+
+use the scroll wheel to determine distance away from player's face to place the block. scrolling back will place the block closer to the face, scrolling forwards will place it further. 
